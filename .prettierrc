@@ -1,0 +1,35 @@
+{
+    "endOfLine": "lf",
+    "bracketSameLine": false,
+    "bracketSpacing": false,
+    "printWidth": 80,
+    "proseWrap": "always",
+    "useTabs": false,
+    "tabWidth": 2,
+    "trailingComma": "none",
+    "singleQuote": false,
+    "quoteProps": "consistent",
+    "arrowParens": "always",
+    "singleAttributePerLine": true,
+    "svelteIndentScriptAndStyle": true,
+    "svelteAllowShorthand": true,
+    "importOrder": [
+        "^@[\\w]+/(.*)$",
+        "^\\$[\\w]+/(.*)$",
+        "^[../]",
+        "^[./]"
+    ],
+    "importOrderSeparation": false,
+    "importOrderSortSpecifiers": true,
+    "plugins": [
+        "./node_modules/prettier-plugin-svelte/plugin.js"
+    ],
+    "overrides": [
+        {
+            "files": "*.svelte",
+            "options": {
+                "parser": "svelte"
+            }
+        }
+    ]
+}
