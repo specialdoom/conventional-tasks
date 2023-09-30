@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "husky install",
+    "dev": "pnpm --filter @specialdoom/conventional-ui run dev",
+    "check:svelte": "pnpm --filter @specialdoom/conventional-ui run check",
+    "check:scripts": "eslint ."
   },
   "keywords": [],
   "author": "specialdoom",
