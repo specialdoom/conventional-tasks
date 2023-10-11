@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
-    "dev": "pnpm --filter @specialdoom/conventional-ui run dev",
-    "check:svelte": "pnpm --filter @specialdoom/conventional-ui run check",
+    "dev": "pnpm --filter @specialdoom/conventional-web run dev",
+    "check:svelte": "pnpm --filter @specialdoom/conventional-web run check",
     "check:scripts": "eslint ."
   },
   "keywords": [],

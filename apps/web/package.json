@@ -1,35 +1,37 @@
 {
-	"name": "@specialdoom/conventional-web",
-	"version": "0.0.0",
-	"private": true,
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"test": "npm run test:integration && npm run test:unit",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write .",
-		"test:integration": "playwright test",
-		"test:unit": "vitest"
-	},
-	"devDependencies": {
-		"@melt-ui/pp": "^0.1.2",
-		"@melt-ui/svelte": "^0.50.0",
-		"@playwright/test": "1.38.1",
-		"@sveltejs/adapter-auto": "2.1.0",
-		"@sveltejs/kit": "1.25.1",
-		"svelte": "4.2.1",
-		"svelte-check": "3.5.2",
-		"svelte-sequential-preprocessor": "^2.0.1",
-		"tslib": "2.6.2",
-		"typescript": "5.2.2",
-		"vite": "4.4.9",
-		"vitest": "0.34.6"
-	},
-	"dependencies": {
-		"marked": "9.0.3"
-	},
-	"type": "module"
+  "name": "@specialdoom/conventional-web",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "npm run test:integration && npm run test:unit",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "lint": "prettier --plugin-search-dir . --check . && eslint .",
+    "format": "prettier --plugin-search-dir . --write .",
+    "test:integration": "playwright test",
+    "test:unit": "vitest"
+  },
+  "devDependencies": {
+    "@melt-ui/pp": "0.1.2",
+    "@melt-ui/svelte": "0.52.0",
+    "@playwright/test": "1.38.1",
+    "@sveltejs/adapter-auto": "2.1.0",
+    "@sveltejs/kit": "1.25.1",
+    "svelte": "4.2.1",
+    "svelte-check": "3.5.2",
+    "svelte-sequential-preprocessor": "2.0.1",
+    "tslib": "2.6.2",
+    "typescript": "5.2.2",
+    "vite": "4.4.11",
+    "vitest": "0.34.6"
+  },
+  "dependencies": {
+    "@commitlint/lint": "17.7.0",
+    "@commitlint/load": "17.7.2",
+    "marked": "9.1.0"
+  },
+  "type": "module"
 }
