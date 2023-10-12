@@ -1,7 +1,7 @@
 import {fail, type Actions} from "@sveltejs/kit";
 import {validation} from "$lib/server/services";
 
-let todos: string[] = [];
+const todos: string[] = [];
 
 export function load() {
   return {todos};
@@ -15,7 +15,7 @@ export const actions: Actions = {
     const validationResult = await validation.validateTask(task);
 
     if (validationResult.success) {
-      todos = [task, ...todos];
+      todos.push(task);
     } else {
       return fail(400, {task, error: validationResult.message});
     }

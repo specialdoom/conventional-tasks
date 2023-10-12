@@ -12,14 +12,11 @@
     display: grid;
     grid-template-columns: repeat(12, [col-start] 1fr);
     height: 100vh;
+    background: #eaeef6;
   }
 
   .cui--layout > * {
     grid-column: col-start / span 12;
-  }
-
-  .cui--side {
-    background: #f4f7fc;
   }
 
   @media (min-width: 500px) {

@@ -16,45 +16,56 @@
   }
 </script>
 
-<div class:cards={true}>
-  {#each data.todos as todo}
-    <!-- eslint-disable -->
-    <div class:card={true}>
-      <div class:card-header={true}></div>
-      <div class:card-body={true}>
-        {@html parseInline(todo)}
+<div class:cui--tasks-page={true}>
+  <div class:cards={true}>
+    {#each data.todos as todo}
+      <!-- eslint-disable -->
+      <div class:card={true}>
+        <div class:card-header={true}></div>
+        <div class:card-body={true}>
+          {@html parseInline(todo)}
+        </div>
       </div>
-    </div>
-  {/each}
-</div>
-
-<div class:actions={true}>
-  <form
-    method="POST"
-    bind:this={ref}
-    use:enhance
-  >
-    <input
-      name="task"
-      value={form?.task || ""}
-      placeholder="What's more to do?"
-      on:keydown={onKeyDown}
-    />
-    {#if form?.error}
-      <p class="error">{form.error}</p>
-    {/if}
-  </form>
+    {/each}
+  </div>
+  <div class:actions={true}>
+    <form
+      method="POST"
+      bind:this={ref}
+      use:enhance
+    >
+      <input
+        name="task"
+        value={form?.task || ""}
+        placeholder="What's more to do?"
+        on:keydown={onKeyDown}
+      />
+      {#if form?.error}
+        <p class="error">{form.error}</p>
+      {/if}
+    </form>
+  </div>
 </div>
 
 <style>
+  .cui--tasks-page {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+  }
   .error {
     color: #79170a;
   }
   /** TODO: create a card component */
-  .cards,
-  .actions {
+  .cards {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 4px;
     padding: 12px;
     box-sizing: border-box;
