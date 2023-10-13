@@ -6,24 +6,16 @@
   export let data: PageData;
 
   export let form: ActionData;
-
-  let ref: HTMLFormElement;
-
-  function onKeyDown(event: KeyboardEvent) {
-    if (event.key === "Enter") {
-      ref.submit();
-    }
-  }
 </script>
 
 <div class:cui--tasks-page={true}>
   <div class:cards={true}>
-    {#each data.todos as todo}
+    {#each data.tasks as task}
       <!-- eslint-disable -->
       <div class:card={true}>
         <div class:card-header={true}></div>
         <div class:card-body={true}>
-          {@html parseInline(todo)}
+          {@html parseInline(task)}
         </div>
       </div>
     {/each}
@@ -31,14 +23,12 @@
   <div class:actions={true}>
     <form
       method="POST"
-      bind:this={ref}
       use:enhance
     >
       <input
         name="task"
         value={form?.task || ""}
         placeholder="What's more to do?"
-        on:keydown={onKeyDown}
       />
       {#if form?.error}
         <p class="error">{form.error}</p>
@@ -67,7 +57,6 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 4px;
-    padding: 12px;
     box-sizing: border-box;
     width: 100%;
   }

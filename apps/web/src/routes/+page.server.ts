@@ -1,10 +1,8 @@
 import {fail, type Actions} from "@sveltejs/kit";
-import {validation} from "$lib/server/services";
-
-const todos: string[] = [];
+import {validation, db} from "$lib/server/services";
 
 export function load() {
-  return {todos};
+  return {tasks: db.getAll()};
 }
 
 export const actions: Actions = {
@@ -15,9 +13,9 @@ export const actions: Actions = {
     const validationResult = await validation.validateTask(task);
 
     if (validationResult.success) {
-      todos.push(task);
+      db.createTask(task);
     } else {
-      return fail(400, {task, error: validationResult.message});
+      return fail(422, {task, error: validationResult.message});
     }
   }
 };
