@@ -10,10 +10,9 @@
 
 <div class:cui--tasks-page={true}>
   <div class:cards={true}>
-    {#each data.tasks as task}
+    {#each data.flatTasks as task}
       <!-- eslint-disable -->
       <div class:card={true}>
-        <div class:card-header={true}></div>
         <div class:card-body={true}>
           {@html parseInline(task)}
         </div>
@@ -42,7 +41,6 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    padding: 12px;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
@@ -67,34 +65,33 @@
     flex-direction: column;
     padding: 8px;
     background: #ffffff;
-    font-size: 13px;
-  }
+    border-radius: var(--size-spacing-1, 8px);
+    border: 1px solid var(--color-brand-secondary, #000);
+    background: var(--color-base-white, #fff);
 
-  .card-header {
-    display: inline-flex;
-    justify-content: space-between;
+    /* Brutal-Shadow-1 */
+    box-shadow: -2px 2px 0px 0px #000;
   }
 
   .card-body :global(code) {
     padding: 2px 4px;
-    font-size: 0.9em;
     line-height: 1;
-    background-color: rgba(99, 110, 123, 0.4);
+    background-color: #000;
+    color: #fff;
+    font-size: 13px;
     border-radius: 6px;
+    font-family: Fira Code;
   }
 
   /** TODO: create a `Textarea` component */
   input {
     box-sizing: border-box;
-    background: #ffffff;
-    border: 1px solid #7784ee;
+    border-radius: var(--size-radius-s, 8px);
+    border: 1px solid var(--color-brand-secondary, #000);
+    background: var(--color-base-white, #fff);
     border-radius: 8px;
     outline: none;
     padding: 12px;
     width: 100%;
-  }
-
-  input:focus {
-    box-shadow: 0px 5px 15px rgba(119, 132, 238, 0.3);
   }
 </style>

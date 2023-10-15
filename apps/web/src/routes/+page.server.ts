@@ -2,7 +2,7 @@ import {fail, type Actions} from "@sveltejs/kit";
 import {validation, db} from "$lib/server/services";
 
 export function load() {
-  return {tasks: db.getAll()};
+  return {tasks: db.getAll(), flatTasks: db.getAllFlat()};
 }
 
 export const actions: Actions = {
