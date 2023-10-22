@@ -1,29 +1,49 @@
-const db: string[] = [];
-const flat_db: Task[] = [];
+let db: Task[] = [];
 
 function getAll() {
   return db;
 }
 
-function getAllFlat() {
-  return flat_db;
+function getById(id: number): Task | undefined {
+  return db.find((t) => t.id === id);
 }
 
 function createTask(task: string) {
   const [type, message] = task.split(":");
-  flat_db.push(task);
-  db.push({type, message});
+  const _type = type as Type;
+
+  db.push({
+    id: db.length + 1,
+    type: _type,
+    message: message.trim(),
+    completed: false
+  });
+}
+
+function updateTask(id: number, task: Task) {
+  db = db.map((t) => {
+    if (t.id === id) {
+      return task;
+    }
+
+    return t;
+  });
 }
 
 export default function database(): Readonly<any> {
   return Object.freeze({
     getAll,
-    getAllFlat,
-    createTask
+    createTask,
+    updateTask,
+    getById
   });
 }
 
 interface Task {
-  type: "feat" | "test" | "fix";
+  id: number;
+  type: Type;
   message: string;
+  completed: boolean;
 }
+
+type Type = "feat" | "test" | "fix";
