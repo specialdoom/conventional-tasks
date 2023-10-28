@@ -1,0 +1,106 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+env:
+  GITHUB_USER: $${ secrets.USER }
+  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
+jobs:
+  # Build packages and publish them as npm packages into our Github registry.
+  release:
+    name: Release package
+    runs-on: ubuntu-latest
+    outputs:
+      # Since `release` step can create new commits, we need to obtain latest
+      # SHA after packages being released to the registry. This will allow us
+      # to checkout the right commit in later jobs.
+      sha_latest: ${{ steps.sha_latest.outputs.value }}
+    steps:
+      # Checkout the repository
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ env.GITHUB_TOKEN }}
+
+      - name: Queue action
+        uses: ahmadnassri/action-workflow-queue@v1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "pnpm_cache_dir=$(pnpm store path)"
+          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build lib packages
+        run: pnpm run build:ui
+
+      - name: Build Rapide front application
+        run: pnpm run build:web
+
+      - name: Release
+        run: pnpm exec multi-semantic-release --ignore-private-packages
+
+      - id: sha_latest
+        name: Returns latest commit hash
+        run: |
+          echo "$(git rev-parse HEAD)"
+          echo "value=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+  # Synchronize the `main` branch with `develop` branch. This is triggered
+  # only if current branch is `main` and after `main` job succeeded.
+  syncing:
+    name: Syncing branches
+    runs-on: ubuntu-latest
+    needs: release
+    if: ${{ success() && github.ref_name == 'main' }}
+    steps:
+      # Display the git hash to checkout in next step (debug info)
+      - name: Read latest commit hash
+        run: echo ${{ needs.release.outputs.sha_latest }}
+
+      # Checkout the repository
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ needs.release.outputs.sha_latest }}
+          fetch-depth: 0
+          token: ${{ env.GITHUB_TOKEN }}
+
+      # Try to merge `main` branch with `next` branch
+      - name: Merge main with next
+        uses: devmasx/merge-branch@master
+        with:
+          # Merge strategy 'now' to run git merge or open a PR.
+          type: now
+          # The source branch to merge with
+          from_branch: ${{ needs.release.outputs.sha_latest }}
+          # The target branch to merge into
+          target_branch: next
+          # The merge commit message
+          message: "chore: merge main with next [skip ci]"
