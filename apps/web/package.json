@@ -15,7 +15,7 @@
     "test:unit": "vitest"
   },
   "devDependencies": {
-    "@specialdoom/conventional-ui": "workspace",
+    "@specialdoom/conventional-ui": "workspace:*",
     "@playwright/test": "1.38.1",
     "@sveltejs/adapter-auto": "2.1.0",
     "@sveltejs/kit": "1.25.1",
