@@ -1,6 +1,6 @@
 # ✅ conventional-tasks
 
-This is a monorepository for the development of a task management app using
+This is a monorepository for the development of a todo management app using
 Svelte, SvelteKit, and Melt-UI. This is based on convetional commits standard.
 
 ## Project Structure
