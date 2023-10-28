@@ -27,16 +27,6 @@
       "svelte": "./src/lib/checkbox/Checkbox.svelte",
       "default": "./src/lib/checkbox/Checkbox.svelte"
     },
-    "./EditInPlace.svelte": {
-      "types": "./dist/edit-in-place/EditInPlace.svelte.d.ts",
-      "svelte": "./src/lib/edit-in-place/EditInPlace.svelte",
-      "default": "./src/lib/edit-in-place/EditInPlace.svelte"
-    },
-    "./Accordion.svelte": {
-      "types": "./dist/accordion/Accordion.svelte.d.ts",
-      "svelte": "./src/lib/accordion/Accordion.svelte",
-      "default": "./src/lib/accordion/Accordion.svelte"
-    },
     "./Avatar.svelte": {
       "types": "./dist/avatar/Avatar.svelte.d.ts",
       "svelte": "./src/lib/avatar/Avatar.svelte",
@@ -55,12 +45,6 @@
       ],
       "Checkbox.svelte": [
         "./dist/checkbox/Checkbox.svelte.d.ts"
-      ],
-      "EditInPlace.svelte": [
-        "./dist/edit-in-place/EditInPlace.svelte.d.ts"
-      ],
-      "Accordion.svelte": [
-        "./dist/accordion/Accordion.svelte.d.ts"
       ],
       "Avatar.svelte": [
         "./dist/avatar/Avatar.svelte.d.ts"
