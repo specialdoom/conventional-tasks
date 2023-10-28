@@ -8,7 +8,6 @@
 		"sourceMap": true,
 		"moduleResolution": "NodeNext",
 		"module": "NodeNext",
-		"sourceRoot": "lib",
-		"outDir": "dist"
+		"allowJs": true
 	}
 }

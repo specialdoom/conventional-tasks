@@ -20,14 +20,19 @@
 
   /** @type {string} Whether the input is disabled or not. */
   export let disabled = "";
+
+  /** @type {boolean} Whether the input should autofocus or not. */
+  export let autofocus = false;
 </script>
 
+<!-- svelte-ignore a11y-autofocus -->
 <input
   class:cui--input={true}
   {name}
   {placeholder}
   {value}
   {disabled}
+  {autofocus}
 />
 
 <style>
