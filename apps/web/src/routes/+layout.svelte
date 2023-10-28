@@ -1,44 +1,7 @@
-<script lang="ts"></script>
+<script lang="ts">
+</script>
 
 <div class="cui--layout">
-  <aside class="cui--side">
-    <div class="cui--title">
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 80 80"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          x="10"
-          y="10"
-          width="68"
-          height="68"
-          fill="black"
-          stroke="black"
-          stroke-width="4"
-          stroke-linejoin="round"
-        />
-        <rect
-          x="2"
-          y="2"
-          width="68"
-          height="68"
-          fill="#00FF75"
-          stroke="black"
-          stroke-width="4"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M58 24L34 48L18 32"
-          stroke="black"
-          stroke-width="8"
-        />
-      </svg>
-      conventional-tasks
-    </div>
-  </aside>
   <main class="cui--content">
     <slot />
   </main>
@@ -46,71 +9,32 @@
 
 <style>
   .cui--layout {
-    display: grid;
-    grid-template-columns: repeat(12, [col-start] 1fr);
-    height: 100vh;
+    height: 100%;
     background: #fffbf4;
+    width: 100%;
+    min-height: 100vh;
   }
 
-  .cui--layout > * {
-    grid-column: col-start / span 12;
+  /* width */
+  :global(::-webkit-scrollbar) {
+    width: 10px;
   }
 
-  .cui--content {
-    grid-column: col-start 3 / span 12;
-    padding: 12px;
-    box-sizing: border-box;
+  /* Track */
+  :global(::-webkit-scrollbar-track) {
+    border-radius: var(--size-radius-rounded, 1000px);
+    border: 1px solid #000;
+    background: var(--color-decorative-pink-90, #ffe2f3);
   }
 
-  .cui--side {
-    grid-column: col-start / span 2;
-    border-right: 2px solid #000;
-    padding: 12px;
-    box-sizing: border-box;
-    align-items: center;
+  /* Handle */
+  :global(::-webkit-scrollbar-thumb) {
+    border-radius: var(--size-radius-rounded, 1000px);
+    background: var(--color-brand-secondary, #000);
   }
 
-  .cui--title {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  @media (max-width: 500px) {
-    .cui--layout {
-      grid-template-columns: repeat(4, [col-start] 1fr);
-    }
-
-    .cui--layout > * {
-      grid-column: col-start / span 4;
-    }
-
-    .cui--side {
-      grid-row: 1 / 1;
-      border-bottom: 2px solid #000;
-      border-right: unset;
-      display: flex;
-      width: 100%;
-      align-items: center;
-    }
-
-    .cui--content {
-      grid-row: 2 / 12;
-    }
-  }
-
-  @media (max-width: 700px) and (min-width: 500px) {
-    .cui--layout {
-      grid-template-columns: repeat(8, [col-start] 1fr);
-    }
-
-    .cui--content {
-      grid-column: col-start 3 / span 8;
-    }
-
-    .cui--side {
-      grid-column: col-start / span 2;
-    }
+  /* Handle on hover */
+  :global(::-webkit-scrollbar-thumb:hover) {
+    background: #555;
   }
 </style>

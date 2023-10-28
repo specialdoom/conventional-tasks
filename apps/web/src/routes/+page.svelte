@@ -1,10 +1,10 @@
 <script lang="ts">
-  import Input from "@specialdoom/conventional-ui/input/Input.svelte";
-  import Checkbox from "@specialdoom/conventional-ui/checkbox/Checkbox.svelte";
-  import Accordion from "@specialdoom/conventional-ui/accordion/Accordion.svelte";
+  import Input from "@specialdoom/conventional-ui/Input.svelte";
+  import Checkbox from "@specialdoom/conventional-ui/Checkbox.svelte";
+  import Collapsible from "@specialdoom/conventional-ui/Collapsible.svelte";
   import {enhance} from "$app/forms";
   import {parseInline} from "marked";
-  import type {PageData, ActionData} from "./$types";
+  import type {PageData, ActionData} from "./$types.js";
 
   export let data: PageData;
 
@@ -16,67 +16,71 @@
 </script>
 
 <div class:cui--tasks-page={true}>
-  <div
-    class:cards={true}
-    style:padding="0 16px"
-  >
-    {#each incompleted as task}
-      <!-- eslint-disable -->
-      <div class:card={true}>
-        <div class:card-body={true}>
-          <form
-            method="POST"
-            action="?/update"
-            use:enhance
-          >
-            <input
-              type="hidden"
-              name="id"
-              value={task.id}
-            />
-            <input
-              type="hidden"
-              name="checked"
-              value="checked"
-            />
-            <Checkbox />
-          </form>
-          <div class:card-title={true}>
-            {@html parseInline(`${task.type}: ${task.message}`)}
+  <!-- eslint-disable -->
+  <div class="cards-container">
+    {#if incompleted.length > 0}
+      <div class:cards={true}>
+        {#each incompleted as task, i (i)}
+          <div class:card={true}>
+            <div class:card-body={true}>
+              <form
+                method="POST"
+                action="?/update"
+                use:enhance
+              >
+                <input
+                  type="hidden"
+                  name="id"
+                  value={task.id}
+                />
+                <input
+                  type="hidden"
+                  name="checked"
+                  value="checked"
+                />
+                <Checkbox
+                  name="task-check"
+                  count={completed.length === 0 ? i : i + completed.length}
+                />
+              </form>
+              {@html parseInline(`${task.type}: ${task.message}`)}
+            </div>
           </div>
-        </div>
+        {/each}
       </div>
-    {/each}
-  </div>
-  {#if completed.length > 0}
-    <div class:completed={true}>
-      <Accordion>
-        <div class:cards={true}>
-          {#each completed as task}
-            <div class:card={true}>
-              <div class:card-body={true}>
-                <form
-                  method="POST"
-                  action="?/update"
-                  use:enhance
-                >
-                  <input
-                    type="hidden"
-                    name="id"
-                    value={task.id}
-                  />
-                  <Checkbox checked />
-                </form>
-                <div class:card-title={true}>
+    {/if}
+    {#if completed.length > 0}
+      <div class:completed={true}>
+        <Collapsible label="Completed">
+          <div class:cards={true}>
+            {#each completed as task, i (i)}
+              <div class:card={true}>
+                <div class:card-body={true}>
+                  <form
+                    method="POST"
+                    action="?/update"
+                    use:enhance
+                  >
+                    <input
+                      type="hidden"
+                      name="id"
+                      value={task.id}
+                    />
+                    <Checkbox
+                      name="task-check"
+                      checked
+                      count={i}
+                    />
+                  </form>
                   {@html parseInline(`~~${task.type}: ${task.message}~~`)}
                 </div>
               </div>
-            </div>
-          {/each}
-        </div>
-      </Accordion>
-    </div>
-  {/if}
+            {/each}
+          </div>
+        </Collapsible>
+      </div>
+    {/if}
+  </div>
   <div class:actions={true}>
     <form
       method="POST"
@@ -87,6 +91,7 @@
         name="task"
         value={form?.task || ""}
         placeholder="What's more to do? e.g. type: markdown"
+        autofocus
       />
       {#if form?.error}
         <p class="error">{form.error}</p>
@@ -97,6 +102,7 @@
 
 <style>
   .cui--tasks-page {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -104,6 +110,21 @@
     width: 100%;
     height: 100%;
     justify-content: space-between;
+    overflow: auto;
+  }
+
+  .actions {
+    height: 58px;
+    position: fixed;
+    bottom: 0;
+    padding: 8px;
+    width: 100%;
+    background: #fffbf4;
+  }
+
+  .cards-container {
+    height: 100%;
+    padding: 8px 16px;
   }
   .completed {
     flex: 1;
